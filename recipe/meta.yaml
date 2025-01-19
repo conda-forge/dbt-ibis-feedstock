@@ -1,3 +1,4 @@
+{% set python_min = '3.10' %}
 {% set name = "dbt-ibis" %}
 {% set version = "0.10.0" %}
 
@@ -14,15 +15,15 @@ build:
     - dbt-ibis = dbt_ibis:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.10
+    - python {{ python_min }}
     - hatchling
     - pip
   run:
-    - python >=3.10
+    - python >={{ python_min }}
     - dbt-core >=1.5
     - ibis-framework >=9
     - click
@@ -34,6 +35,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   summary: Write your dbt models using Ibis
